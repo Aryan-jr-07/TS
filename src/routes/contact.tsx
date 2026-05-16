@@ -10,9 +10,9 @@ import { useState } from "react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Aryan & Team" },
+      { title: "Contact — TwinStack" },
       { name: "description", content: "WhatsApp, Instagram or email us. Let's grab a chai in Rishikesh and talk about your business." },
-      { property: "og:title", content: "Contact — Aryan & Team" },
+      { property: "og:title", content: "Contact — TwinStack" },
       { property: "og:description", content: "Interested? Let's grab a chai and talk." },
     ],
   }),
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/contact")({
 function ContactPage() {
   const [name, setName] = useState("");
   const [msg, setMsg] = useState("");
-  const composed = `Hi Aryan & Team! I'm ${name || "[name]"}. ${msg}`;
+  const composed = `Hi TwinStack! I'm ${name || "[name]"}. ${msg}`;
 
   return (
     <section className="mx-auto max-w-6xl px-5 pt-16 pb-24 md:pt-24">

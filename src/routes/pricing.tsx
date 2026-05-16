@@ -7,9 +7,9 @@ import { waLink } from "@/lib/contact";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Aryan & Team" },
+      { title: "Pricing — TwinStack" },
       { name: "description", content: "Simple project-based pricing for Rishikesh businesses. Basic, Standard and Full Package — no retainers." },
-      { property: "og:title", content: "Pricing — Aryan & Team" },
+      { property: "og:title", content: "Pricing — TwinStack" },
       { property: "og:description", content: "Three honest tiers. One-time fee. You own everything." },
     ],
   }),

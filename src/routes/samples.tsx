@@ -14,9 +14,9 @@ import cafe from "@/assets/sample-cafe-hero.jpg";
 export const Route = createFileRoute("/samples")({
   head: () => ({
     meta: [
-      { title: "Sample Work — Aryan & Team" },
+      { title: "Sample Work — TwinStack" },
       { name: "description", content: "See exactly what we build: full sample website, Google Business Profile mockup, booking widget, Instagram grid and analytics dashboard." },
-      { property: "og:title", content: "Sample Work — Aryan & Team" },
+      { property: "og:title", content: "Sample Work — TwinStack" },
       { property: "og:description", content: "Real sample work for a fictional Rishikesh café & guesthouse — every section, every detail." },
     ],
   }),

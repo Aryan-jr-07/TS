@@ -10,9 +10,9 @@ import heroImg from "@/assets/hero-rishikesh.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Aryan & Team — We help Rishikesh businesses grow online" },
+      { title: "TwinStack — We help Rishikesh businesses grow online" },
       { name: "description", content: "Websites, Google listings, bookings, Instagram and analytics for local Rishikesh cafés, hotels and yoga studios. Fast turnaround, no agency fees." },
-      { property: "og:title", content: "Aryan & Team — We help Rishikesh businesses grow online" },
+      { property: "og:title", content: "TwinStack — We help Rishikesh businesses grow online" },
       { property: "og:description", content: "Local digital services for Rishikesh businesses. From websites to Google listings — we handle everything digital." },
     ],
   }),
@@ -88,7 +88,7 @@ function WhoWeAre() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               "We're not an agency. There's just two of us, working out of a café in Tapovan with our laptops. We meet you in person, build what you need in a few days, hand over everything, and stay around if you need tweaks."
             </p>
-            <p className="mt-4 text-sm font-medium text-foreground">— Aryan & Team</p>
+            <p className="mt-4 text-sm font-medium text-foreground">— TwinStack</p>
           </div>
           <div className="absolute -bottom-4 -right-4 hidden h-24 w-24 rounded-2xl bg-primary/10 md:block" />
         </div>

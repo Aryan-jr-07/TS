@@ -11,7 +11,7 @@ export function Footer() {
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
               <Leaf className="h-4 w-4" />
             </span>
-            Aryan & Team
+            TwinStack
           </div>
           <p className="mt-3 max-w-xs text-sm text-muted-foreground">
             Two CS students helping Rishikesh businesses build a strong digital presence — one website at a time.
@@ -52,7 +52,7 @@ export function Footer() {
 
       <div className="border-t border-border/60">
         <div className="mx-auto max-w-6xl px-5 py-5 text-xs text-muted-foreground">
-          Made in Rishikesh · © {new Date().getFullYear()} Aryan & Team
+          Made in Rishikesh · © {new Date().getFullYear()} TwinStack
         </div>
       </div>
     </footer>

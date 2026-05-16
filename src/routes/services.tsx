@@ -8,9 +8,9 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — Aryan & Team" },
+      { title: "Services — TwinStack" },
       { name: "description", content: "Websites, Google Business Profiles, online booking, Instagram setup and analytics for Rishikesh businesses." },
-      { property: "og:title", content: "Services — Aryan & Team" },
+      { property: "og:title", content: "Services — TwinStack" },
       { property: "og:description", content: "Six focused digital services for local Rishikesh cafés, hotels, yoga studios and shops." },
     ],
   }),

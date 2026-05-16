@@ -76,14 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Aryan & Team — Digital Services for Rishikesh Businesses" },
+      { title: "TwinStack — Digital Services for Rishikesh Businesses" },
       { name: "description", content: "Websites, Google listings, bookings & Instagram for Rishikesh cafés, hotels, yoga studios and shops. Local, fast, no agency fees." },
-      { name: "author", content: "Aryan & Team" },
-      { property: "og:title", content: "Aryan & Team — Digital Services for Rishikesh Businesses" },
+      { name: "author", content: "TwinStack" },
+      { property: "og:title", content: "TwinStack — Digital Services for Rishikesh Businesses" },
       { property: "og:description", content: "We help Rishikesh businesses grow online — websites, Google listings, bookings, and more." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:site", content: "@TwinStack" },
     ],
     links: [
       {

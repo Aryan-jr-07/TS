@@ -21,7 +21,7 @@ export function Header() {
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
             <Leaf className="h-4 w-4" />
           </span>
-          <span>Aryan <span className="text-muted-foreground font-normal">& Team</span></span>
+          <span>Twin<span className="text-muted-foreground font-normal">Stack</span></span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
