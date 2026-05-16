@@ -1,8 +1,8 @@
 export const CONTACT = {
-  whatsappNumber: "+919999999999",
-  whatsappDisplay: "+91 99999 99999",
+  whatsappNumber: "+918002858802",
+  whatsappDisplay: "+91 80028 58802",
   instagram: "twinstack",
-  email: "hello@twinstack.in",
+  email: "[EMAIL_ADDRESS]",
 };
 
 export const waLink = (msg = "Hi TwinStack — I saw your site and would like to chat!") =>
