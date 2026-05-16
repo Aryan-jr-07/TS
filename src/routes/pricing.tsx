@@ -94,7 +94,7 @@ function PricingPage() {
                   </li>
                 ))}
               </ul>
-              <Button asChild className={`mt-7 ${t.featured ? "" : "variant-outline"}`} variant={t.featured ? "default" : "outline"}>
+              <Button asChild className="mt-7" variant={t.featured ? "default" : "outline"}>
                 <a href={waLink(`Hi! I'm interested in the ${t.name} package.`)} target="_blank" rel="noreferrer">
                   Let's talk <MessageCircle className="ml-1 h-4 w-4" />
                 </a>
