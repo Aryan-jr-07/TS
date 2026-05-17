@@ -6,8 +6,7 @@ import { CONTACT, waLink } from "@/lib/contact";
 
 const nav = [
   { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/samples", label: "Samples" },
+  { to: "/samples", label: "Services" },
   { to: "/pricing", label: "Pricing" },
   { to: "/contact", label: "Contact" },
 ] as const;
