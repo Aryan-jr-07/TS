@@ -10,6 +10,7 @@ import heroRishikesh from "@/assets/hero-rishikesh.jpg";
 import landscape from "@/assets/landscape.jpg";
 import sampleGallery from "@/assets/sample-gallery.jpg";
 import sampleYoga from "@/assets/sample-yoga.jpg";
+import sampleYoga2 from "@/assets/sample-yoga-2.png";
 
 type BusinessKey = "cafe" | "rafting" | "yoga";
 
@@ -94,7 +95,7 @@ const BUSINESSES = {
       category: "Yoga Studio",
       images: [
         { src: sampleYoga, tag: "Yoga Shala" },
-        { src: landscape, tag: "Mountain View" },
+        { src: sampleYoga2, tag: "Asana Class" },
         { src: room, tag: "Retreat Stay" }
       ],
       address: "High Bank, Tapovan, Rishikesh",
