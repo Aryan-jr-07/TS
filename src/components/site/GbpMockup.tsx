@@ -94,8 +94,8 @@ const BUSINESSES = {
       category: "Yoga Studio",
       images: [
         { src: sampleYoga, tag: "Yoga Shala" },
-        { src: sampleGallery, tag: "Meditation" },
-        { src: landscape, tag: "Mountain View" }
+        { src: landscape, tag: "Mountain View" },
+        { src: room, tag: "Retreat Stay" }
       ],
       address: "High Bank, Tapovan, Rishikesh",
       addressDesc: "Clear map pin for the hidden sanctuary retreat location",
