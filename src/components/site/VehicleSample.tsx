@@ -1,5 +1,6 @@
 import bike from "@/assets/sample-bike.png";
 import car from "@/assets/sample-car.png";
+import scooty from "@/assets/sample-scooty.png";
 import { MapPin, Phone, Shield, Star, Award, Sparkles, MessageCircle, Calendar } from "lucide-react";
 
 export function VehicleSample() {
@@ -11,9 +12,9 @@ export function VehicleSample() {
           <span className="text-primary-foreground bg-primary rounded px-1.5 py-0.5 text-[10px]">⚡</span> Rishikesh Wheels
         </div>
         <nav className="hidden md:flex gap-6 text-xs text-slate-400 font-medium">
+          <span className="hover:text-white cursor-pointer transition-colors">Scooters</span>
           <span className="hover:text-white cursor-pointer transition-colors">Bikes</span>
           <span className="hover:text-white cursor-pointer transition-colors">Cars</span>
-          <span className="hover:text-white cursor-pointer transition-colors">Terms</span>
           <span className="hover:text-white cursor-pointer transition-colors">Location</span>
         </nav>
         <button className="rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 transition-opacity">
@@ -93,24 +94,24 @@ export function VehicleSample() {
 
       {/* Fleet Showcase */}
       <section className="px-6 py-16 bg-slate-900">
-        <div className="mx-auto max-w-5xl space-y-8">
+        <div className="mx-auto max-w-6xl space-y-8">
           <div className="text-center">
             <h4 className="text-2xl md:text-3xl font-black text-white">Choose Your Adventure Wheels</h4>
             <p className="text-sm text-slate-400 mt-2">Maintained daily by certified mechanics. GPS mount & USB charger pre-installed.</p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Vehicle 1 */}
+          <div className="grid gap-6 md:grid-cols-3">
+            {/* Vehicle 1 - Scooty */}
             <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden flex flex-col justify-between group">
               <div className="relative aspect-video overflow-hidden">
-                <img src={bike} alt="Scooter Rental" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <span className="absolute top-3 right-3 rounded-full bg-slate-950/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold text-primary">Two Wheeler</span>
+                <img src={scooty} alt="Scooter Rental" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute top-3 right-3 rounded-full bg-slate-950/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold text-primary">Scooter</span>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h5 className="font-bold text-base text-white">Royal Enfield & Scooters</h5>
-                    <p className="text-xs text-slate-400 mt-1">Himalayan, Classic 350, Activa 6G</p>
+                    <h5 className="font-bold text-base text-white">Premium Scooters</h5>
+                    <p className="text-xs text-slate-400 mt-1">Activa 6G, Ntorq 125, Vespa</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[10px] text-slate-400">Starting from</p>
@@ -119,7 +120,34 @@ export function VehicleSample() {
                 </div>
                 <div className="text-xs text-slate-300 space-y-1.5 border-t border-slate-800/80 pt-4">
                   <p>✓ Free double helmets included</p>
-                  <p>✓ Unlimited kilometers inside Rishikesh & Shivpuri</p>
+                  <p>✓ Perfect for Tapovan & Laxman Jhula traffic</p>
+                </div>
+                <button className="w-full rounded-xl bg-slate-800 hover:bg-primary hover:text-primary-foreground py-2.5 text-xs font-semibold text-white transition-all">
+                  Check Scooty Availability
+                </button>
+              </div>
+            </div>
+
+            {/* Vehicle 2 - Bike */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden flex flex-col justify-between group">
+              <div className="relative aspect-video overflow-hidden">
+                <img src={bike} alt="Motorcycle Rental" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <span className="absolute top-3 right-3 rounded-full bg-slate-950/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold text-primary">Motorcycle</span>
+              </div>
+              <div className="p-5 space-y-4">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h5 className="font-bold text-base text-white">Adventure Bikes</h5>
+                    <p className="text-xs text-slate-400 mt-1">Himalayan 450, Classic 350, Hunter</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[10px] text-slate-400">Starting from</p>
+                    <p className="font-extrabold text-primary text-sm">₹900/day</p>
+                  </div>
+                </div>
+                <div className="text-xs text-slate-300 space-y-1.5 border-t border-slate-800/80 pt-4">
+                  <p>✓ Crash guards & mobile mounts loaded</p>
+                  <p>✓ Great for Neer Waterfall & Shivpuri runs</p>
                 </div>
                 <button className="w-full rounded-xl bg-slate-800 hover:bg-primary hover:text-primary-foreground py-2.5 text-xs font-semibold text-white transition-all">
                   Check Bike Availability
@@ -127,17 +155,17 @@ export function VehicleSample() {
               </div>
             </div>
 
-            {/* Vehicle 2 */}
+            {/* Vehicle 3 - Car */}
             <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden flex flex-col justify-between group">
               <div className="relative aspect-video overflow-hidden">
                 <img src={car} alt="SUV Rental" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <span className="absolute top-3 right-3 rounded-full bg-slate-950/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold text-primary">Four Wheeler</span>
+                <span className="absolute top-3 right-3 rounded-full bg-slate-950/80 backdrop-blur-md px-3 py-1 text-[10px] font-bold text-primary">SUV / Sedan</span>
               </div>
               <div className="p-5 space-y-4">
                 <div className="flex justify-between items-start">
                   <div>
                     <h5 className="font-bold text-base text-white">Adventure SUVs & Cars</h5>
-                    <p className="text-xs text-slate-400 mt-1">Mahindra Thar 4x4, Swift, Innova Crysta</p>
+                    <p className="text-xs text-slate-400 mt-1">Mahindra Thar 4x4, Swift, Innova</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[10px] text-slate-400">Starting from</p>
@@ -145,8 +173,8 @@ export function VehicleSample() {
                   </div>
                 </div>
                 <div className="text-xs text-slate-300 space-y-1.5 border-t border-slate-800/80 pt-4">
-                  <p>✓ Fully sanitized vehicle & full tank fuel options</p>
-                  <p>✓ All India tourist permit ready</p>
+                  <p>✓ Sanitized interiors & full tank options</p>
+                  <p>✓ All India permits & off-road ready</p>
                 </div>
                 <button className="w-full rounded-xl bg-slate-800 hover:bg-primary hover:text-primary-foreground py-2.5 text-xs font-semibold text-white transition-all">
                   Check Car Availability
