@@ -104,9 +104,6 @@ function PricingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 py-10 text-center text-sm text-muted-foreground">
-        Domain & hosting costs (~₹1,500/yr) are paid directly to the provider in your name — we don't mark them up.
-      </section>
     </>
   );
 }
