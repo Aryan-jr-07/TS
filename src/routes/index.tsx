@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MessageCircle, MapPin, Languages, Clock, Wallet, Heart, CalendarCheck, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowRight, MessageCircle, MapPin, Languages, Clock, Wallet, Heart, CalendarCheck, Sparkles, Search, Loader2, AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { CONTACT, openCalendlyPopup, waLink } from "@/lib/contact";
@@ -184,12 +185,206 @@ function ContactTeaser() {
   );
 }
 
+function LocalSeoCheckup() {
+  const [bizName, setBizName] = useState("");
+  const [bizNiche, setBizNiche] = useState("cafe");
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanIndex, setScanIndex] = useState(0);
+  const [showResults, setShowResults] = useState(false);
+
+  const scanMessages = [
+    "Searching Google Maps database in Rishikesh...",
+    "Validating business name alignment...",
+    "Checking website link availability...",
+    "Scanning user reviews & rating density...",
+    "Estimating mobile load speed performance...",
+    "Analyzing competitor keyword rankings..."
+  ];
+
+  useEffect(() => {
+    let interval: any;
+    if (isScanning) {
+      interval = setInterval(() => {
+        setScanIndex(prev => {
+          if (prev >= scanMessages.length - 1) {
+            clearInterval(interval);
+            setIsScanning(false);
+            setShowResults(true);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 700);
+    }
+    return () => clearInterval(interval);
+  }, [isScanning]);
+
+  const handleStartScan = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bizName.trim()) return;
+    setIsScanning(true);
+    setScanIndex(0);
+    setShowResults(false);
+  };
+
+  const getWhatsappFixLink = () => {
+    const text = `Hi TwinStack! I ran a Local SEO checkup for my business: "${bizName}" (${bizNiche}). I got a score of 62/100 and would like to fix the issues listed.`;
+    return waLink(text);
+  };
+
+  return (
+    <section className="mx-auto max-w-4xl px-5 py-16 scroll-mt-20">
+      <div className="rounded-3xl border border-border bg-card p-6 md:p-10 shadow-[var(--shadow-soft)]">
+        <div className="text-center max-w-xl mx-auto mb-8">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            <Sparkles className="h-3 w-3" /> Audit Tool
+          </span>
+          <h3 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+            Free Local SEO Checkup
+          </h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Find out why your business is hidden on Google Maps and how many bookings you are losing to competitors.
+          </p>
+        </div>
+
+        {!isScanning && !showResults && (
+          <form onSubmit={handleStartScan} className="space-y-4 max-w-md mx-auto">
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-foreground uppercase tracking-wider">Business Name</label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Ganga view cafe, Rishikesh Adventure..."
+                value={bizName}
+                onChange={e => setBizName(e.target.value)}
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-foreground uppercase tracking-wider">Business Niche</label>
+              <select
+                value={bizNiche}
+                onChange={e => setBizNiche(e.target.value)}
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+              >
+                <option value="cafe">Café / Restaurant</option>
+                <option value="stay">Hotel / Guesthouse / Homestay</option>
+                <option value="yoga">Yoga / Wellness Studio</option>
+                <option value="adventure">Rafting / Camping Operator</option>
+              </select>
+            </div>
+
+            <Button type="submit" className="w-full font-bold py-6 text-sm">
+              Scan My Listing <Search className="ml-1 h-4 w-4" />
+            </Button>
+          </form>
+        )}
+
+        {isScanning && (
+          <div className="flex flex-col items-center justify-center py-10 space-y-6 text-center max-w-sm mx-auto">
+            <Loader2 className="h-10 w-10 text-primary animate-spin" />
+            <div className="space-y-2 w-full">
+              <p className="font-semibold text-sm text-foreground animate-pulse h-5">
+                {scanMessages[scanIndex]}
+              </p>
+              <div className="w-full bg-secondary/50 rounded-full h-1.5 overflow-hidden">
+                <div 
+                  className="bg-primary h-full transition-all duration-700" 
+                  style={{ width: `${((scanIndex + 1) / scanMessages.length) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {showResults && (
+          <div className="space-y-6 animate-in fade-in duration-300">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border/80 pb-6">
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Report for</p>
+                <h4 className="text-xl font-bold text-foreground mt-1">{bizName}</h4>
+                <p className="text-xs text-muted-foreground capitalize mt-0.5">{bizNiche} Category · Rishikesh Area</p>
+              </div>
+              <div className="flex items-center gap-4 bg-secondary/30 border border-border p-4 rounded-2xl">
+                <div className="text-center">
+                  <span className="text-3xl font-black text-amber-500">62/100</span>
+                  <p className="text-[10px] text-muted-foreground font-semibold mt-1">SEO Health Score</p>
+                </div>
+                <div className="h-10 w-px bg-border" />
+                <div>
+                  <span className="inline-flex items-center gap-1 rounded bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-500">
+                    Needs Attention
+                  </span>
+                  <p className="text-[10px] text-muted-foreground mt-1 leading-tight max-w-[120px]">
+                    Losing ~40% of potential direct bookings
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-xs font-semibold text-foreground uppercase tracking-wider">Vulnerabilities Identified</p>
+              
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
+                  <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h5 className="text-xs font-bold text-foreground">Missing Primary Website Link</h5>
+                    <p className="text-[10px] text-muted-foreground mt-1">Google Maps profile has no direct website URL. Customers cannot check menus/photos, resulting in booking drop-offs.</p>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
+                  <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h5 className="text-xs font-bold text-foreground">Low Review Response Rate</h5>
+                    <p className="text-[10px] text-muted-foreground mt-1">Under 15% of customer reviews are answered. Google algorithms deprioritize profiles that ignore local review interaction.</p>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
+                  <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h5 className="text-xs font-bold text-foreground">Slow Mobile Page Loading</h5>
+                    <p className="text-[10px] text-muted-foreground mt-1">Competitors loaded ~2x faster on mobile. Slow page loads cause 30%+ visitors to click back immediately.</p>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                  <div>
+                    <h5 className="text-xs font-bold text-foreground">Listing Verified & Active</h5>
+                    <p className="text-[10px] text-muted-foreground mt-1">Your Google listing is verified and matches physical GPS directions in Tapovan. Base parameters are intact.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 flex flex-col sm:flex-row gap-3">
+              <Button asChild className="flex-1 bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white">
+                <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
+                  <MessageCircle className="mr-1 h-4 w-4 text-white" /> Fix These Issues on WhatsApp
+                </a>
+              </Button>
+              <Button onClick={() => setShowResults(false)} variant="outline" className="font-semibold py-6 text-xs">
+                Scan Another Business
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function Home() {
   return (
     <>
       <Hero />
       <WhoWeAre />
       <TrustSection />
+      <LocalSeoCheckup />
       <WhyUs />
       <ContactTeaser />
     </>
