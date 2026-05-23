@@ -356,16 +356,23 @@ function LocalSeoShowcase() {
         </div>
 
         {/* CTA section */}
-        <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-left sm:max-w-md">
+        <div className="mt-8 pt-6 border-t border-border flex flex-col lg:flex-row items-center justify-between gap-6">
+          <div className="text-center lg:text-left lg:max-w-md">
             <h4 className="text-sm font-bold text-foreground">Want a custom SEO checkup for your business?</h4>
             <p className="text-xs text-muted-foreground mt-1">We can run a live search audit on your brand name right now to find out where you're losing traffic.</p>
           </div>
-          <Button asChild className="w-full sm:w-auto bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white px-6">
-            <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
-              <MessageCircle className="mr-1.5 h-4.5 w-4.5 text-white" /> Scan My Business Website
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 justify-center">
+            <Button asChild className="w-full sm:w-auto bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white px-6">
+              <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
+                <MessageCircle className="mr-1.5 h-4.5 w-4.5 text-white" /> Send via WhatsApp
+              </a>
+            </Button>
+            <Button asChild variant="outline" className="w-full sm:w-auto font-bold py-6 text-xs px-6 border-border hover:bg-secondary">
+              <a href={CONTACT.calendly} onClick={openCalendlyPopup}>
+                <CalendarCheck className="mr-1.5 h-4.5 w-4.5 text-primary" /> Book a meeting
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
