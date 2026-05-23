@@ -185,194 +185,188 @@ function ContactTeaser() {
   );
 }
 
-function LocalSeoCheckup() {
-  const [bizName, setBizName] = useState("");
-  const [bizNiche, setBizNiche] = useState("cafe");
-  const [isScanning, setIsScanning] = useState(false);
-  const [scanIndex, setScanIndex] = useState(0);
-  const [showResults, setShowResults] = useState(false);
+interface AuditedBusiness {
+  name: string;
+  domain: string;
+  niche: string;
+  flawedScore: number;
+  flawedIssues: string[];
+  optimizedScore: number;
+  optimizedSolutions: string[];
+}
 
-  const scanMessages = [
-    "Searching Google Maps database in Rishikesh...",
-    "Validating business name alignment...",
-    "Checking website link availability...",
-    "Scanning user reviews & rating density...",
-    "Estimating mobile load speed performance...",
-    "Analyzing competitor keyword rankings..."
-  ];
+const AUDITED_BUSINESSES: AuditedBusiness[] = [
+  {
+    name: "Secret Garden Cafe",
+    domain: "secretgardencaferishikesh.com",
+    niche: "Café & Restaurant",
+    flawedScore: 64,
+    flawedIssues: [
+      "Mobile load speed: 4.8 seconds (causes 40%+ bounce rate)",
+      "Uncompressed food and cafe images (heavy JPEG formats)",
+      "Missing Google Local Schema markup (hidden from Maps)",
+      "Broken or outdated digital menu PDF links"
+    ],
+    optimizedScore: 98,
+    optimizedSolutions: [
+      "Ultra-fast mobile load: 0.8s (static generation)",
+      "WebP compressed images with modern lazy loading",
+      "Full JSON-LD structured schema indexed by Google Map crawlers",
+      "Interactive digital menus with seamless search engine indexing"
+    ]
+  },
+  {
+    name: "Rafting Rishikesh Adventure",
+    domain: "rishikeshraftingadventures.in",
+    niche: "Adventure Tours & Operator",
+    flawedScore: 58,
+    flawedIssues: [
+      "No H1 semantic tag on home page (hurts primary keyword rank)",
+      "Unresponsive booking table layout (unusable on mobile screens)",
+      "Zero alt tags on activity images (invisible in Google Images)",
+      "Unsecure HTTP setup missing SSL certification"
+    ],
+    optimizedScore: 95,
+    optimizedSolutions: [
+      "Perfect semantic heading structure & key SEO terms layout",
+      "Responsive, mobile-friendly booking CTA and buttons",
+      "Descriptive, keyword-rich image alt tags for local searches",
+      "Secure HTTPS config with free auto-renewing SSL out-of-the-box"
+    ]
+  },
+  {
+    name: "Tapovan Yoga Shala",
+    domain: "tapovanyogashala.org",
+    niche: "Yoga & Wellness Center",
+    flawedScore: 61,
+    flawedIssues: [
+      "Slow initial server response (TTFB over 1.8 seconds)",
+      "Dynamic class timetable schedule slows down page load",
+      "Duplicate pages & missing canonical URL tags",
+      "Low Core Web Vitals score (fails mobile search ranking)"
+    ],
+    optimizedScore: 97,
+    optimizedSolutions: [
+      "Static edge delivery network (TTFB under 0.1 seconds)",
+      "Optimized, fast-rendering static class timeline grid",
+      "Properly configured canonical headers for clean indexing",
+      "Perfect 100/100 Lighthouse performance and Core Web Vitals"
+    ]
+  }
+];
 
-  useEffect(() => {
-    let interval: any;
-    if (isScanning) {
-      interval = setInterval(() => {
-        setScanIndex(prev => {
-          if (prev >= scanMessages.length - 1) {
-            clearInterval(interval);
-            setIsScanning(false);
-            setShowResults(true);
-            return prev;
-          }
-          return prev + 1;
-        });
-      }, 700);
-    }
-    return () => clearInterval(interval);
-  }, [isScanning]);
-
-  const handleStartScan = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!bizName.trim()) return;
-    setIsScanning(true);
-    setScanIndex(0);
-    setShowResults(false);
-  };
+function LocalSeoShowcase() {
+  const [activeTab, setActiveTab] = useState(0);
+  const activeBiz = AUDITED_BUSINESSES[activeTab];
 
   const getWhatsappFixLink = () => {
-    const text = `Hi TwinStack! I ran a Local SEO checkup for my business: "${bizName}" (${bizNiche}). I got a score of 62/100 and would like to fix the issues listed.`;
+    const text = `Hi TwinStack! I looked at the SEO audit showcase for "${activeBiz.name}". I'd like to check the SEO score of my own Rishikesh business website and see how you can fix it.`;
     return waLink(text);
   };
 
   return (
-    <section className="mx-auto max-w-4xl px-5 py-16 scroll-mt-20">
+    <section className="mx-auto max-w-5xl px-5 py-16 scroll-mt-20">
       <div className="rounded-3xl border border-border bg-card p-6 md:p-10 shadow-[var(--shadow-soft)]">
         <div className="text-center max-w-xl mx-auto mb-8">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            <Sparkles className="h-3 w-3" /> Audit Tool
+            <Sparkles className="h-3 w-3" /> SEO Audit Showcase
           </span>
           <h3 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Free Local SEO Checkup
+            Rishikesh SEO Performance
           </h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            Find out why your business is hidden on Google Maps and how many bookings you are losing to competitors.
+            See how typical local websites fail Google's latest search requirements, and how TwinStack upgrades them to an absolute A+ rank.
           </p>
         </div>
 
-        {!isScanning && !showResults && (
-          <form onSubmit={handleStartScan} className="space-y-4 max-w-md mx-auto">
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-foreground uppercase tracking-wider">Business Name</label>
-              <input
-                type="text"
-                required
-                placeholder="e.g. Ganga view cafe, Rishikesh Adventure..."
-                value={bizName}
-                onChange={e => setBizName(e.target.value)}
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
-              />
-            </div>
+        {/* Tab Buttons */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8 border-b border-border/80 pb-6">
+          {AUDITED_BUSINESSES.map((biz, idx) => (
+            <button
+              key={biz.name}
+              onClick={() => setActiveTab(idx)}
+              className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all ${
+                activeTab === idx
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                  : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary/60 hover:text-foreground"
+              }`}
+            >
+              {biz.name}
+            </button>
+          ))}
+        </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-foreground uppercase tracking-wider">Business Niche</label>
-              <select
-                value={bizNiche}
-                onChange={e => setBizNiche(e.target.value)}
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
-              >
-                <option value="cafe">Café / Restaurant</option>
-                <option value="stay">Hotel / Guesthouse / Homestay</option>
-                <option value="yoga">Yoga / Wellness Studio</option>
-                <option value="adventure">Rafting / Camping Operator</option>
-              </select>
-            </div>
-
-            <Button type="submit" className="w-full font-bold py-6 text-sm">
-              Scan My Listing <Search className="ml-1 h-4 w-4" />
-            </Button>
-          </form>
-        )}
-
-        {isScanning && (
-          <div className="flex flex-col items-center justify-center py-10 space-y-6 text-center max-w-sm mx-auto">
-            <Loader2 className="h-10 w-10 text-primary animate-spin" />
-            <div className="space-y-2 w-full">
-              <p className="font-semibold text-sm text-foreground animate-pulse h-5">
-                {scanMessages[scanIndex]}
-              </p>
-              <div className="w-full bg-secondary/50 rounded-full h-1.5 overflow-hidden">
-                <div 
-                  className="bg-primary h-full transition-all duration-700" 
-                  style={{ width: `${((scanIndex + 1) / scanMessages.length) * 100}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {showResults && (
-          <div className="space-y-6 animate-in fade-in duration-300">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border/80 pb-6">
+        {/* Comparative Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {/* Left Column - Current Issues */}
+          <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.02] p-5 md:p-6 space-y-4">
+            <div className="flex justify-between items-start">
               <div>
-                <p className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Report for</p>
-                <h4 className="text-xl font-bold text-foreground mt-1">{bizName}</h4>
-                <p className="text-xs text-muted-foreground capitalize mt-0.5">{bizNiche} Category · Rishikesh Area</p>
+                <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold text-red-500">
+                  Current Website
+                </span>
+                <p className="text-xs text-muted-foreground mt-1.5 font-mono">{activeBiz.domain}</p>
               </div>
-              <div className="flex items-center gap-4 bg-secondary/30 border border-border p-4 rounded-2xl">
-                <div className="text-center">
-                  <span className="text-3xl font-black text-amber-500">62/100</span>
-                  <p className="text-[10px] text-muted-foreground font-semibold mt-1">SEO Health Score</p>
-                </div>
-                <div className="h-10 w-px bg-border" />
-                <div>
-                  <span className="inline-flex items-center gap-1 rounded bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-500">
-                    Needs Attention
-                  </span>
-                  <p className="text-[10px] text-muted-foreground mt-1 leading-tight max-w-[120px]">
-                    Losing ~40% of potential direct bookings
-                  </p>
-                </div>
+              <div className="text-right">
+                <span className="text-3xl font-black text-red-500">{activeBiz.flawedScore}%</span>
+                <p className="text-[10px] text-muted-foreground mt-0.5 font-semibold">On-Page Score</p>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <p className="text-xs font-semibold text-foreground uppercase tracking-wider">Vulnerabilities Identified</p>
-              
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
-                  <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-foreground">Missing Primary Website Link</h5>
-                    <p className="text-[10px] text-muted-foreground mt-1">Google Maps profile has no direct website URL. Customers cannot check menus/photos, resulting in booking drop-offs.</p>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
-                  <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-foreground">Low Review Response Rate</h5>
-                    <p className="text-[10px] text-muted-foreground mt-1">Under 15% of customer reviews are answered. Google algorithms deprioritize profiles that ignore local review interaction.</p>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
-                  <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-foreground">Slow Mobile Page Loading</h5>
-                    <p className="text-[10px] text-muted-foreground mt-1">Competitors loaded ~2x faster on mobile. Slow page loads cause 30%+ visitors to click back immediately.</p>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-border bg-card p-4 flex gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-bold text-foreground">Listing Verified & Active</h5>
-                    <p className="text-[10px] text-muted-foreground mt-1">Your Google listing is verified and matches physical GPS directions in Tapovan. Base parameters are intact.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-4 flex flex-col sm:flex-row gap-3">
-              <Button asChild className="flex-1 bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white">
-                <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
-                  <MessageCircle className="mr-1 h-4 w-4 text-white" /> Fix These Issues on WhatsApp
-                </a>
-              </Button>
-              <Button onClick={() => setShowResults(false)} variant="outline" className="font-semibold py-6 text-xs">
-                Scan Another Business
-              </Button>
+            <div className="border-t border-red-500/10 pt-4 space-y-3">
+              <p className="text-xs font-bold text-foreground uppercase tracking-wider">SEO Flaws & Bottlenecks</p>
+              <ul className="space-y-2.5">
+                {activeBiz.flawedIssues.map((issue, idx) => (
+                  <li key={idx} className="flex gap-2.5 text-xs text-muted-foreground items-start">
+                    <XCircle className="h-4.5 w-4.5 text-red-500 shrink-0 mt-0.5" />
+                    <span>{issue}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        )}
+
+          {/* Right Column - TwinStack Solution */}
+          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.02] p-5 md:p-6 space-y-4">
+            <div className="flex justify-between items-start">
+              <div>
+                <span className="inline-flex items-center gap-1 rounded bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
+                  TwinStack Optimized
+                </span>
+                <p className="text-xs text-muted-foreground mt-1.5 font-semibold text-emerald-600 dark:text-emerald-400">100% Owned Solution</p>
+              </div>
+              <div className="text-right">
+                <span className="text-3xl font-black text-emerald-500">{activeBiz.optimizedScore}%</span>
+                <p className="text-[10px] text-muted-foreground mt-0.5 font-semibold">SEO Score</p>
+              </div>
+            </div>
+
+            <div className="border-t border-emerald-500/10 pt-4 space-y-3">
+              <p className="text-xs font-bold text-foreground uppercase tracking-wider">TwinStack Solutions</p>
+              <ul className="space-y-2.5">
+                {activeBiz.optimizedSolutions.map((solution, idx) => (
+                  <li key={idx} className="flex gap-2.5 text-xs text-muted-foreground items-start">
+                    <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span>{solution}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA section */}
+        <div className="mt-8 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-left sm:max-w-md">
+            <h4 className="text-sm font-bold text-foreground">Want a custom SEO checkup for your business?</h4>
+            <p className="text-xs text-muted-foreground mt-1">We can run a live search audit on your brand name right now to find out where you're losing traffic.</p>
+          </div>
+          <Button asChild className="w-full sm:w-auto bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white px-6">
+            <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
+              <MessageCircle className="mr-1.5 h-4.5 w-4.5 text-white" /> Scan My Business Website
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -384,7 +378,7 @@ function Home() {
       <Hero />
       <WhoWeAre />
       <TrustSection />
-      <LocalSeoCheckup />
+      <LocalSeoShowcase />
       <WhyUs />
       <ContactTeaser />
     </>
