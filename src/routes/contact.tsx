@@ -56,9 +56,9 @@ function ContactPage() {
           </div>
           <p className="mt-4 font-semibold">Instagram</p>
           <div className="mt-2.5 space-y-2">
-            <a href="https://instagram.com/aryanjndge" target="_blank" rel="noreferrer"
+            <a href="https://instagram.com/aryanjngde" target="_blank" rel="noreferrer"
               className="flex items-center justify-between rounded-xl bg-secondary/50 px-3.5 py-2.5 text-xs font-semibold text-foreground hover:bg-primary/10 hover:text-primary transition-all">
-              <span>@aryanjndge</span>
+              <span>@aryanjngde</span>
               <span className="text-[10px] text-muted-foreground font-normal">Tech & Dev</span>
             </a>
             <a href="https://instagram.com/aryan_jr007" target="_blank" rel="noreferrer"

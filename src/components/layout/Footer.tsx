@@ -36,8 +36,8 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://instagram.com/aryanjndge" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary">
-                <Instagram className="h-4 w-4" /> @aryanjndge
+              <a href="https://instagram.com/aryanjngde" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary">
+                <Instagram className="h-4 w-4" /> @aryanjngde
               </a>
             </li>
             <li>
