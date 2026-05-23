@@ -50,15 +50,24 @@ function ContactPage() {
           <p className="mt-3 text-xs font-medium text-primary group-hover:underline">Open chat →</p>
         </a>
 
-        <a href={`https://instagram.com/${CONTACT.instagram}`} target="_blank" rel="noreferrer"
-          className="group rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+        <div className="group rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
           <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent text-accent-foreground">
             <Instagram className="h-5 w-5" />
           </div>
           <p className="mt-4 font-semibold">Instagram</p>
-          <p className="text-sm text-muted-foreground">@{CONTACT.instagram}</p>
-          <p className="mt-3 text-xs font-medium text-primary group-hover:underline">DM us →</p>
-        </a>
+          <div className="mt-2.5 space-y-2">
+            <a href="https://instagram.com/aryanjndge" target="_blank" rel="noreferrer"
+              className="flex items-center justify-between rounded-xl bg-secondary/50 px-3.5 py-2.5 text-xs font-semibold text-foreground hover:bg-primary/10 hover:text-primary transition-all">
+              <span>@aryanjndge</span>
+              <span className="text-[10px] text-muted-foreground font-normal">Tech & Dev</span>
+            </a>
+            <a href="https://instagram.com/aryan_jr007" target="_blank" rel="noreferrer"
+              className="flex items-center justify-between rounded-xl bg-secondary/50 px-3.5 py-2.5 text-xs font-semibold text-foreground hover:bg-primary/10 hover:text-primary transition-all">
+              <span>@aryan_jr007</span>
+              <span className="text-[10px] text-muted-foreground font-normal">Travel & Life</span>
+            </a>
+          </div>
+        </div>
 
         <a href={`mailto:${CONTACT.email}`}
           className="group rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] transition hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">

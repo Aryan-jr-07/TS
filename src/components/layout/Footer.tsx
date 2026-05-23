@@ -36,8 +36,13 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href={`https://instagram.com/${CONTACT.instagram}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary">
-                <Instagram className="h-4 w-4" /> @{CONTACT.instagram}
+              <a href="https://instagram.com/aryanjndge" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary">
+                <Instagram className="h-4 w-4" /> @aryanjndge
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/aryan_jr007" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-primary">
+                <Instagram className="h-4 w-4" /> @aryan_jr007
               </a>
             </li>
             <li>

@@ -52,101 +52,37 @@ export const Route = createFileRoute("/samples")({
 });
 
 function InstagramGrid() {
-  const [activeProfile, setActiveProfile] = useState<"aryanjndge" | "aryan_jr007">("aryanjndge");
-
-  const profiles = {
-    aryanjndge: {
-      username: "aryanjndge",
-      name: "Aryan | Developer",
-      bio: "💻 Building @TwinStack · Crafting premium web designs & apps · Tech Enthusiast",
-      posts: "142",
-      followers: "3.8k",
-      following: "284",
-      avatar: cafe,
-      images: [room, food, gallery, room, food, gallery, room, food, gallery]
-    },
-    aryan_jr007: {
-      username: "aryan_jr007",
-      name: "Aryan | Travel & Life",
-      bio: "🏔️ Exploring the mountains · Outdoor adventures · Capturing moments in Rishikesh",
-      posts: "95",
-      followers: "2.4k",
-      following: "198",
-      avatar: heroRishikesh,
-      images: [heroRishikesh, landscape, smoke, heroRishikesh, landscape, smoke, heroRishikesh, landscape, smoke]
-    }
-  };
-
-  const current = profiles[activeProfile];
-
   return (
     <div className="mx-auto max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-      {/* Profile Selector Tabs */}
-      <div className="flex border-b border-border bg-secondary/30 p-1">
-        <button
-          onClick={() => setActiveProfile("aryanjndge")}
-          className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
-            activeProfile === "aryanjndge"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          @aryanjndge
-        </button>
-        <button
-          onClick={() => setActiveProfile("aryan_jr007")}
-          className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
-            activeProfile === "aryan_jr007"
-              ? "bg-background text-foreground shadow-sm"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          @aryan_jr007
-        </button>
-      </div>
-
-      {/* Profile Header */}
       <div className="flex items-center gap-3 border-b border-border p-4">
         <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-500 p-0.5">
-          <img src={current.avatar} alt="Profile" className="h-full w-full rounded-full border-2 border-card object-cover" loading="lazy" />
+          <img src={cafe} alt="Ganga Leaf profile" className="h-full w-full rounded-full border-2 border-card object-cover" loading="lazy" decoding="async" />
         </div>
         <div className="flex-1">
-          <p className="text-sm font-semibold">{current.username}</p>
-          <p className="text-xs text-muted-foreground">{current.name}</p>
+          <p className="text-sm font-semibold">gangaleaf</p>
+          <p className="text-xs text-muted-foreground">Café & Stay · Tapovan, Rishikesh</p>
         </div>
-        <button className="rounded-md bg-primary px-3 py-1 text-xs font-medium text-primary-foreground hover:opacity-90 transition-opacity">Follow</button>
+        <button className="rounded-md bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">Follow</button>
       </div>
-
-      {/* Bio Section */}
-      <div className="px-4 py-3 border-b border-border bg-secondary/10">
-        <p className="text-xs leading-relaxed text-foreground font-medium">
-          {current.bio}
-        </p>
-      </div>
-
-      {/* Stats */}
       <div className="flex justify-around border-b border-border py-3 text-center text-xs">
-        <div><p className="font-semibold text-base">{current.posts}</p><p className="text-muted-foreground">Posts</p></div>
-        <div><p className="font-semibold text-base">{current.followers}</p><p className="text-muted-foreground">Followers</p></div>
-        <div><p className="font-semibold text-base">{current.following}</p><p className="text-muted-foreground">Following</p></div>
+        <div><p className="font-semibold text-base">126</p><p className="text-muted-foreground">Posts</p></div>
+        <div><p className="font-semibold text-base">4.2k</p><p className="text-muted-foreground">Followers</p></div>
+        <div><p className="font-semibold text-base">312</p><p className="text-muted-foreground">Following</p></div>
       </div>
-
-      {/* Image Grid */}
       <div className="grid grid-cols-3 gap-0.5">
-        {current.images.map((src, i) => (
+        {INSTAGRAM_IMAGES.map((src, i) => (
           <div key={i} className="relative aspect-square">
             <img src={src} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
             <div className="absolute inset-0 flex items-center justify-center gap-3 bg-black/0 text-xs font-semibold text-white opacity-0 transition hover:bg-black/40 hover:opacity-100">
-              <span className="flex items-center gap-1"><Heart className="h-3 w-3" fill="white" /> {Math.floor(Math.random() * 100) + 120}</span>
-              <span className="flex items-center gap-1"><MessageCircle className="h-3 w-3" fill="white" /> {Math.floor(Math.random() * 20) + 5}</span>
+              <span className="flex items-center gap-1"><Heart className="h-3 w-3" fill="white" /> 240</span>
+              <span className="flex items-center gap-1"><MessageCircle className="h-3 w-3" fill="white" /> 18</span>
             </div>
           </div>
         ))}
       </div>
-      
       <div className="flex items-center justify-between border-t border-border p-3 text-muted-foreground">
-        <div className="flex gap-3"><Heart className="h-5 w-5 hover:text-foreground cursor-pointer" /><MessageCircle className="h-5 w-5 hover:text-foreground cursor-pointer" /><Send className="h-5 w-5 hover:text-foreground cursor-pointer" /></div>
-        <Bookmark className="h-5 w-5 hover:text-foreground cursor-pointer" />
+        <div className="flex gap-3"><Heart className="h-5 w-5" /><MessageCircle className="h-5 w-5" /><Send className="h-5 w-5" /></div>
+        <Bookmark className="h-5 w-5" />
       </div>
     </div>
   );
