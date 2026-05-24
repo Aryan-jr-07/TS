@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
-import { ArrowRight, MessageCircle, MapPin, Languages, Clock, Wallet, Heart, CalendarCheck, Sparkles, Search, Loader2, AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ArrowRight, MessageCircle, MapPin, Languages, Clock, Wallet, Heart, CalendarCheck, Sparkles, Search, Loader2, AlertTriangle, CheckCircle2, XCircle, TrendingUp, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { CONTACT, openCalendlyPopup, waLink } from "@/lib/contact";
@@ -189,6 +189,7 @@ interface AuditedBusiness {
   name: string;
   domain: string;
   niche: string;
+  nicheEmoji: string;
   flawedScore: number;
   flawedIssues: string[];
   optimizedScore: number;
@@ -200,6 +201,7 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
     name: "Secret Garden Cafe",
     domain: "secretgardencaferishikesh.com",
     niche: "Café & Restaurant",
+    nicheEmoji: "☕",
     flawedScore: 64,
     flawedIssues: [
       "Mobile load speed: 4.8 seconds (causes 40%+ bounce rate)",
@@ -217,8 +219,9 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
   },
   {
     name: "Rafting Rishikesh Adventure",
-    domain: "https://riverraftingrishikesh.com/",
+    domain: "riverraftingrishikesh.com",
     niche: "Adventure Tours & Operator",
+    nicheEmoji: "🚣",
     flawedScore: 48,
     flawedIssues: [
       "No H1 semantic tag on home page (hurts primary keyword rank)",
@@ -236,8 +239,9 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
   },
   {
     name: "Tapovan Yoga Shala",
-    domain: "https://www.rishikeshyogaassociation.com",
+    domain: "rishikeshyogaassociation.com",
     niche: "Yoga & Wellness Center",
+    nicheEmoji: "🧘",
     flawedScore: 59,
     flawedIssues: [
       "Slow initial server response (TTFB over 1.8 seconds)",
@@ -255,120 +259,166 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
   }
 ];
 
+function ScoreBar({ score, color, animate }: { score: number; color: "red" | "emerald"; animate: boolean }) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (animate) {
+      setWidth(0);
+      const t = setTimeout(() => setWidth(score), 80);
+      return () => clearTimeout(t);
+    }
+  }, [score, animate]);
+  return (
+    <div className="w-full h-3.5 rounded-full bg-secondary overflow-hidden border border-border">
+      <div
+        className={`h-full rounded-full transition-all duration-700 ease-out ${
+          color === "red"
+            ? "bg-gradient-to-r from-red-600 to-red-400"
+            : "bg-gradient-to-r from-emerald-600 to-emerald-400"
+        }`}
+        style={{ width: `${width}%` }}
+      />
+    </div>
+  );
+}
+
 function LocalSeoShowcase() {
   const [activeTab, setActiveTab] = useState(0);
+  const [animateKey, setAnimateKey] = useState(0);
   const activeBiz = AUDITED_BUSINESSES[activeTab];
+  const gain = activeBiz.optimizedScore - activeBiz.flawedScore;
+
+  const handleTab = (idx: number) => {
+    setActiveTab(idx);
+    setAnimateKey(k => k + 1);
+  };
 
   const getWhatsappFixLink = () => {
-    const text = `Hi TwinStack! I looked at the SEO audit showcase for "${activeBiz.name}". I'd like to check the SEO score of my own Rishikesh business website and see how you can fix it.`;
+    const text = `Hi TwinStack! I saw your SEO audit for "${activeBiz.name}" and I'd love to get a free checkup for my own business website in Rishikesh.`;
     return waLink(text);
   };
 
   return (
     <section className="mx-auto max-w-5xl px-5 py-16 scroll-mt-20">
-      <div className="rounded-3xl border border-border bg-card p-6 md:p-10 shadow-[var(--shadow-soft)]">
-        <div className="text-center max-w-xl mx-auto mb-8">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-            <Sparkles className="h-3 w-3" /> SEO Audit Showcase
-          </span>
-          <h3 className="mt-3 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
-            Rishikesh SEO Performance
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            See how typical local websites fail Google's latest search requirements, and how TwinStack upgrades them to an absolute A+ rank.
-          </p>
-        </div>
+      {/* Attention hook above the card */}
+      <div className="text-center mb-10">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-4">
+          <Sparkles className="h-3 w-3" /> Real Rishikesh Business Audits
+        </span>
+        <h2 className="text-3xl font-extrabold tracking-tight text-foreground md:text-4xl leading-tight">
+          Your competitors are <span className="text-primary">already ranking.</span>
+          <br />
+          <span className="text-muted-foreground font-medium text-2xl md:text-3xl">Is your website holding you back?</span>
+        </h2>
+        <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
+          We audited real Rishikesh businesses. Every single one had critical SEO issues costing them daily bookings and visibility. See the gap — and how we close it.
+        </p>
+      </div>
 
-        {/* Tab Buttons */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8 border-b border-border/80 pb-6">
+      <div className="rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)] overflow-hidden">
+
+        {/* Business selector tabs */}
+        <div className="flex border-b border-border">
           {AUDITED_BUSINESSES.map((biz, idx) => (
             <button
               key={biz.name}
-              onClick={() => setActiveTab(idx)}
-              className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all ${activeTab === idx
-                ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary/60 hover:text-foreground"
-                }`}
+              onClick={() => handleTab(idx)}
+              className={`flex-1 px-3 py-4 text-xs font-semibold transition-all border-b-2 ${
+                activeTab === idx
+                  ? "border-primary text-primary bg-primary/5"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:bg-secondary/30"
+              }`}
             >
-              {biz.name}
+              <span className="block text-base mb-0.5">{biz.nicheEmoji}</span>
+              <span className="hidden sm:block">{biz.name}</span>
+              <span className="block sm:hidden text-[10px] leading-tight">{biz.niche}</span>
             </button>
           ))}
         </div>
 
-        {/* Comparative Grid */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {/* Left Column - Current Issues */}
-          <div className="rounded-2xl border border-red-500/20 bg-red-500/[0.02] p-5 md:p-6 space-y-4">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="inline-flex items-center gap-1 rounded bg-red-500/10 px-2 py-0.5 text-[10px] font-semibold text-red-500">
-                  Current Website
-                </span>
-                <p className="text-xs text-muted-foreground mt-1.5 font-mono">{activeBiz.domain}</p>
-              </div>
-              <div className="text-right">
-                <span className="text-3xl font-black text-red-500">{activeBiz.flawedScore}%</span>
-                <p className="text-[10px] text-muted-foreground mt-0.5 font-semibold">On-Page Score</p>
-              </div>
-            </div>
-
-            <div className="border-t border-red-500/10 pt-4 space-y-3">
-              <p className="text-xs font-bold text-foreground uppercase tracking-wider">SEO Flaws & Bottlenecks</p>
-              <ul className="space-y-2.5">
-                {activeBiz.flawedIssues.map((issue, idx) => (
-                  <li key={idx} className="flex gap-2.5 text-xs text-muted-foreground items-start">
-                    <XCircle className="h-4.5 w-4.5 text-red-500 shrink-0 mt-0.5" />
-                    <span>{issue}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* Score impact banner */}
+        <div className="px-6 py-6 md:px-10 bg-gradient-to-r from-red-500/10 via-background to-emerald-500/10 border-b-2 border-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="text-xs text-muted-foreground font-mono">{activeBiz.nicheEmoji} {activeBiz.niche} · {activeBiz.domain}</p>
+            <p className="mt-1 text-lg font-extrabold text-foreground">{activeBiz.name}</p>
           </div>
-
-          {/* Right Column - TwinStack Solution */}
-          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.02] p-5 md:p-6 space-y-4">
-            <div className="flex justify-between items-start">
-              <div>
-                <span className="inline-flex items-center gap-1 rounded bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-500">
-                  TwinStack Optimized
-                </span>
-                <p className="text-xs text-muted-foreground mt-1.5 font-semibold text-emerald-600 dark:text-emerald-400">100% Owned Solution</p>
-              </div>
-              <div className="text-right">
-                <span className="text-3xl font-black text-emerald-500">{activeBiz.optimizedScore}%</span>
-                <p className="text-[10px] text-muted-foreground mt-0.5 font-semibold">SEO Score</p>
-              </div>
+          <div className="flex items-center gap-5 shrink-0">
+            <div className="text-center bg-red-500/10 border border-red-500/30 rounded-2xl px-5 py-3">
+              <p className="text-4xl font-black text-red-500">{activeBiz.flawedScore}%</p>
+              <p className="text-[10px] text-red-400 font-bold uppercase tracking-wider mt-0.5">Current Score</p>
             </div>
-
-            <div className="border-t border-emerald-500/10 pt-4 space-y-3">
-              <p className="text-xs font-bold text-foreground uppercase tracking-wider">TwinStack Solutions</p>
-              <ul className="space-y-2.5">
-                {activeBiz.optimizedSolutions.map((solution, idx) => (
-                  <li key={idx} className="flex gap-2.5 text-xs text-muted-foreground items-start">
-                    <CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0 mt-0.5" />
-                    <span>{solution}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-col items-center gap-1">
+              <div className="flex items-center gap-1 rounded-full bg-emerald-500 px-3 py-1.5 shadow-lg">
+                <TrendingUp className="h-3.5 w-3.5 text-white" />
+                <span className="text-sm font-black text-white">+{gain}%</span>
+              </div>
+              <ArrowRight className="h-5 w-5 text-muted-foreground" />
+            </div>
+            <div className="text-center bg-emerald-500/10 border border-emerald-500/30 rounded-2xl px-5 py-3">
+              <p className="text-4xl font-black text-emerald-500">{activeBiz.optimizedScore}%</p>
+              <p className="text-[10px] text-emerald-500 font-bold uppercase tracking-wider mt-0.5">With TwinStack</p>
             </div>
           </div>
         </div>
 
-        {/* CTA section */}
-        <div className="mt-8 pt-6 border-t border-border flex flex-col lg:flex-row items-center justify-between gap-6">
-          <div className="text-center lg:text-left lg:max-w-md">
-            <h4 className="text-sm font-bold text-foreground">Want a custom SEO checkup for your business?</h4>
-            <p className="text-xs text-muted-foreground mt-1">We can run a live search audit on your brand name right now to find out where you're losing traffic.</p>
+        {/* Side-by-side paired issues and fixes */}
+        <div className="p-6 md:p-10">
+          {/* Column headers */}
+          <div className="grid grid-cols-2 gap-4 mb-5">
+            <div className="flex items-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-2.5">
+              <XCircle className="h-4 w-4 text-red-500 shrink-0" />
+              <span className="text-xs font-bold uppercase tracking-widest text-red-500">What's broken now</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-4 py-2.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+              <span className="text-xs font-bold uppercase tracking-widest text-emerald-500">How we fix it</span>
+            </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 justify-center">
-            <Button asChild className="w-full sm:w-auto bg-[color:var(--whatsapp)] hover:opacity-90 font-bold py-6 text-xs text-white px-6">
+
+          <div className="space-y-3">
+            {activeBiz.flawedIssues.map((issue, i) => (
+              <div key={i} className="grid grid-cols-2 gap-3">
+                <div className="flex gap-3 items-start rounded-xl border border-red-500/40 bg-red-500/8 px-4 py-3.5">
+                  <XCircle className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
+                  <span className="text-xs text-foreground leading-snug font-medium">{issue}</span>
+                </div>
+                <div className="flex gap-3 items-start rounded-xl border border-emerald-500/40 bg-emerald-500/8 px-4 py-3.5">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <span className="text-xs text-foreground leading-snug font-medium">{activeBiz.optimizedSolutions[i]}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Score bars */}
+          <div className="mt-8 space-y-4 rounded-2xl border border-border bg-secondary/30 p-5">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-3">SEO Score Comparison</p>
+            <div className="flex items-center gap-4">
+              <span className="w-32 text-xs text-right text-red-500 font-bold shrink-0">Before: {activeBiz.flawedScore}%</span>
+              <ScoreBar key={`red-${animateKey}`} score={activeBiz.flawedScore} color="red" animate={true} />
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="w-32 text-xs text-right text-emerald-500 font-bold shrink-0">After: {activeBiz.optimizedScore}%</span>
+              <ScoreBar key={`green-${animateKey}`} score={activeBiz.optimizedScore} color="emerald" animate={true} />
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="px-6 pb-8 md:px-10 flex flex-col sm:flex-row items-center justify-between gap-5 border-t border-border pt-6">
+          <div>
+            <p className="text-sm font-bold text-foreground">Is your website making these same mistakes?</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Get a free audit — we'll show you exactly where you're losing customers.</p>
+          </div>
+          <div className="flex gap-3 shrink-0">
+            <Button asChild className="bg-[color:var(--whatsapp)] hover:opacity-90 font-bold text-xs text-white px-5">
               <a href={getWhatsappFixLink()} target="_blank" rel="noreferrer">
-                <MessageCircle className="mr-1.5 h-4.5 w-4.5 text-white" /> Send via WhatsApp
+                <MessageCircle className="mr-1.5 h-4 w-4" /> Free Audit on WhatsApp
               </a>
             </Button>
-            <Button asChild variant="outline" className="w-full sm:w-auto font-bold py-6 text-xs px-6 border-border hover:bg-secondary">
+            <Button asChild variant="outline" className="font-bold text-xs px-5">
               <a href={CONTACT.calendly} onClick={openCalendlyPopup}>
-                <CalendarCheck className="mr-1.5 h-4.5 w-4.5 text-primary" /> Book a meeting
+                <CalendarCheck className="mr-1.5 h-4 w-4 text-primary" /> Book a Call
               </a>
             </Button>
           </div>
