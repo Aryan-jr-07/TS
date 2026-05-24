@@ -217,9 +217,9 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
   },
   {
     name: "Rafting Rishikesh Adventure",
-    domain: "rishikeshraftingadventures.in",
+    domain: "https://riverraftingrishikesh.com/",
     niche: "Adventure Tours & Operator",
-    flawedScore: 58,
+    flawedScore: 48,
     flawedIssues: [
       "No H1 semantic tag on home page (hurts primary keyword rank)",
       "Unresponsive booking table layout (unusable on mobile screens)",
@@ -236,9 +236,9 @@ const AUDITED_BUSINESSES: AuditedBusiness[] = [
   },
   {
     name: "Tapovan Yoga Shala",
-    domain: "tapovanyogashala.org",
+    domain: "https://www.rishikeshyogaassociation.com",
     niche: "Yoga & Wellness Center",
-    flawedScore: 61,
+    flawedScore: 59,
     flawedIssues: [
       "Slow initial server response (TTFB over 1.8 seconds)",
       "Dynamic class timetable schedule slows down page load",
@@ -285,11 +285,10 @@ function LocalSeoShowcase() {
             <button
               key={biz.name}
               onClick={() => setActiveTab(idx)}
-              className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all ${
-                activeTab === idx
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
-                  : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary/60 hover:text-foreground"
-              }`}
+              className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all ${activeTab === idx
+                ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                : "bg-secondary/40 text-muted-foreground border-border hover:bg-secondary/60 hover:text-foreground"
+                }`}
             >
               {biz.name}
             </button>
